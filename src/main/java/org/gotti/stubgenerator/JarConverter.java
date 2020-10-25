@@ -17,6 +17,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.Collections;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -28,9 +29,12 @@ import org.apache.commons.cli.Options;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.LoaderClassPath;
 import javassist.NotFoundException;
 
 public class JarConverter {
+
+	private static final Logger LOGGER = Logger.getLogger(JarConverter.class.getName());
 
 	public static void main(String[] args) {
 		try {
@@ -49,7 +53,10 @@ public class JarConverter {
 				System.exit(0);
 			}
 			
-			new JarConverter().convert(Paths.get(cmd.getOptionValue("source")), Paths.get(cmd.getOptionValue("target")));
+			String source = cmd.getOptionValue("source");
+			String target = cmd.getOptionValue("target");
+			System.out.printf("Converting %s to %s\n", source, target);
+			new JarConverter().convert(Paths.get(source), Paths.get(target));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,9 +81,11 @@ public class JarConverter {
 	public JarConverter() {
 	}
 
-	public void convert(Path source, Path target) throws NotFoundException, CannotCompileException, IOException {
+	public void convert(Path source, Path target) throws NotFoundException, CannotCompileException, IOException, ClassNotFoundException {
 
-		ClassPool classPool = new ClassPool(true);
+		ClassPool classPool = new ClassPool();
+		classPool.appendSystemPath();
+		classPool.appendClassPath(new LoaderClassPath(this.getClass().getClassLoader()));
 		classPool.appendClassPath(source.toString());
 		StubGenerator stubGenerator = new StubGenerator(classPool);
 
@@ -93,7 +102,7 @@ public class JarConverter {
 
 							ClassPool stubClassPool = new ClassPool(classPool);
 							CtClass ctClass = stubClassPool.makeClass(inputStream, false);
-							System.out.println(ctClass.getName());
+							LOGGER.fine(ctClass.getName());
 
 							CtClass stubClass = stubGenerator.makeStubClass(ctClass);
 
