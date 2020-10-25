@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.gotti.stubgenerator</groupId>
 	<artifactId>stubgenerator</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>Stub generator</name>
 	<description>Generate replacement stubs from a jar file</description>
 	
