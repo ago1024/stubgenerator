@@ -8,6 +8,12 @@
 	<name>Stub generator</name>
 	<description>Generate replacement stubs from a jar file</description>
 	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
 	<repositories>
 		<repository>
 			<id>gotti-no-ip-org-ssh-repository</id>
@@ -30,7 +36,7 @@
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
-			<version>3.23.1-GA</version>
+			<version>3.27.0-GA</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-cli</groupId>
@@ -39,12 +45,6 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
-	
 	<build>
 		<extensions>
 			<extension>
@@ -54,4 +54,5 @@
 			</extension>
 		</extensions>
 	</build>
+	
 </project>
