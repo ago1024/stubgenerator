@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.gotti.stubgenerator</groupId>
+	<artifactId>stubgenerator</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Stub generator</name>
+	<description>Generate replacement stubs from a jar file</description>
+	
+	<repositories>
+		<repository>
+			<id>gotti-no-ip-org-ssh-repository</id>
+			<url>http://gotti.no-ip.org/maven/repository</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>gotti-no-ip-org-ssh-repository</id>
+			<url>scp://gotti.no-ip.org/srv/maven/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>gotti-no-ip-org-ssh-repository</id>
+			<url>scp://gotti.no-ip.org/srv/maven/repository</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.23.1-GA</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.4</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>3.4.1</version>
+			</extension>
+		</extensions>
+	</build>
+</project>
